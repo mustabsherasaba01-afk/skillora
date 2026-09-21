@@ -1,0 +1,2 @@
+import EmptyState from '../components/EmptyState';
+export default function SimplePage({ title = 'Your space', label = 'Workspace' }) { return <div className="dashboard-page"><div className="dashboard-title-row"><div><span className="eyebrow">{label}</span><h2>{title}</h2></div></div><EmptyState title="This view is ready for your next move" text="Connect the API data here when you are ready to make it yours." /></div>; }

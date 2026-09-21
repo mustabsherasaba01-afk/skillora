@@ -1,0 +1,15 @@
+const express = require('express');
+const authorize = require('../middleware/roleMiddleware');
+const { protect } = require('../middleware/authMiddleware');
+const upload = require('../middleware/uploadMiddleware');
+const { listProjects, getProject, createProject, updateProject, deleteProject, myProjects, recommendedProjects, completeProject } = require('../controllers/projectController');
+const router = express.Router();
+router.get('/', listProjects);
+router.get('/my-projects', protect, authorize('client'), myProjects);
+router.get('/recommended', protect, authorize('freelancer'), recommendedProjects);
+router.get('/:id', getProject);
+router.post('/', protect, authorize('client'), upload.array('attachments', 10), createProject);
+router.put('/:id/complete', protect, completeProject);
+router.put('/:id', protect, authorize('client'), upload.array('attachments', 10), updateProject);
+router.delete('/:id', protect, authorize('client'), deleteProject);
+module.exports = router;

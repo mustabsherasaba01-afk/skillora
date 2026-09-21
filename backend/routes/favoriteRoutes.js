@@ -1,0 +1,11 @@
+const express = require('express');
+const { protect } = require('../middleware/authMiddleware');
+const { favoriteProject, favoriteFreelancer, removeProject, removeFreelancer, listFavorites } = require('../controllers/favoriteController');
+const router = express.Router();
+router.use(protect);
+router.get('/', listFavorites);
+router.post('/project/:id', favoriteProject);
+router.delete('/project/:id', removeProject);
+router.post('/freelancer/:id', favoriteFreelancer);
+router.delete('/freelancer/:id', removeFreelancer);
+module.exports = router;

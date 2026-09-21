@@ -1,0 +1,11 @@
+const express = require('express');
+const { protect } = require('../middleware/authMiddleware');
+const upload = require('../middleware/uploadMiddleware');
+const { createConversation, conversations, conversationMessages } = require('../controllers/messageController');
+const router = express.Router();
+router.use(protect);
+router.post('/conversation', createConversation);
+router.get('/conversations', conversations);
+router.get('/:conversationId', conversationMessages);
+router.post('/:conversationId/attachment', upload.single('attachment'), (req, res) => res.json({ success: true, message: 'Upload ready', data: { attachment: `/uploads/${req.file.filename}` } }));
+module.exports = router;

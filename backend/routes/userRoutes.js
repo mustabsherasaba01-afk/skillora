@@ -1,0 +1,11 @@
+const express = require('express');
+const { listUsers, getUser, updateProfile, listFreelancers } = require('../controllers/userController');
+const { protect } = require('../middleware/authMiddleware');
+const upload = require('../middleware/uploadMiddleware');
+const router = express.Router();
+router.get('/', listUsers);
+router.get('/freelancers', listFreelancers);
+router.get('/freelancers/:id', getUser);
+router.get('/:id', getUser);
+router.put('/profile', protect, upload.single('profileImage'), updateProfile);
+module.exports = router;
