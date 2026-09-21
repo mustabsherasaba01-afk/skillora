@@ -1,3 +1,27 @@
 # Skillora frontend
 
-Vite + React frontend for the Skillora marketplace. Run `npm install`, then `npm run dev` from this directory. The API URL is configured with `VITE_API_URL` and defaults to `http://localhost:5000/api`; Socket.IO uses `VITE_SOCKET_URL`. The UI includes realistic fallback content so the product remains browsable while the backend is offline, and switches to live API data when available.
+Vite + React frontend for the Skillora marketplace.
+
+## Local setup
+
+```bash
+npm install
+npm run dev
+```
+
+The app runs at `http://localhost:5173`. Configure the backend connection in `.env`:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+VITE_SOCKET_URL=http://localhost:5000
+```
+
+## Production deployment
+
+- **Root directory:** `frontend`
+- **Build command:** `npm run build`
+- **Output directory:** `dist`
+
+Set `VITE_API_URL` to the deployed backend `/api` URL and `VITE_SOCKET_URL` to the deployed backend origin in the hosting provider's environment settings. The included `vercel.json` and `public/_redirects` make React Router routes work after a direct page refresh on Vercel and Netlify.
+
+The UI includes realistic fallback content while the API is offline, then switches to live data when the backend is available.

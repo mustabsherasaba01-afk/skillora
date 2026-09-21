@@ -1,13 +1,13 @@
 # Skillora Backend
 
-Production-structured REST API for the Skillora MERN freelancing marketplace.
+Express, MongoDB, Mongoose, JWT, and Socket.IO backend for the Skillora freelancing marketplace.
 
-## Run
+## Local setup
 
-1. Install MongoDB and start it locally.
+1. Install Node.js 18+ and MongoDB, then start MongoDB.
 2. From this directory run `npm install`.
-3. Copy `.env` values into your environment and change `JWT_SECRET` for deployment.
-4. Run `npm run dev` or `npm start`.
+3. Create `.env` with `PORT`, `MONGO_URI`, `JWT_SECRET`, `CLIENT_URL`, and `UPLOAD_MAX_MB`.
+4. Run `npm run dev` during development or `npm start` in production.
 
 The API listens at `http://localhost:5000`. Health check: `GET /api/health`.
 
@@ -38,3 +38,24 @@ All responses use `{ success, message, data }`. Send the JWT either as the `toke
 - `/api/dashboard/client`, `/api/dashboard/freelancer`
 
 Socket events: `userOnline`, `userOffline`, `joinConversation`, `sendMessage`, `receiveMessage`, `typing`, `stopTyping`, and `messageRead`.
+
+## Production deployment
+
+Deploy this directory as a persistent Node.js web service on Render, Railway, Fly.io, or a similar host. Socket.IO should not be deployed as a serverless function.
+
+- **Root directory:** `backend`
+- **Build command:** `npm install`
+- **Start command:** `npm start`
+- **Health check:** `/api/health`
+
+Production environment example:
+
+```env
+PORT=5000
+MONGO_URI=mongodb+srv://<user>:<password>@<cluster>/skillora
+JWT_SECRET=<long-random-secret>
+CLIENT_URL=https://<frontend-domain>
+UPLOAD_MAX_MB=10
+```
+
+Set these values in the host dashboard rather than committing a production `.env` file. After deployment, set the frontend `VITE_API_URL` to `https://<backend-domain>/api` and `VITE_SOCKET_URL` to `https://<backend-domain>`.
